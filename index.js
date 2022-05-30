@@ -1,25 +1,38 @@
 function newImage (url, left, bottom) {
-    let picture = document.createElement('img');
-    picture.src = url;
-    picture.style.position = 'fixed';
-    picture.style.left = left + 'px';
-    picture.style.bottom = bottom + 'px';
-    document.body.append(picture);
+    let object = document.createElement('img');
+    object.src = url;
+    object.style.position = 'fixed';
+    object.style.left = left + 'px';
+    object.style.bottom = bottom + 'px';
+    document.body.append(object);
+    return object
 }
 
 function newItem (url, left, bottom) {
-    let object = newItem(url, left, bottom);
-    // object.src = url;
-    // object.style.position = 'fixed';
-    // object.style.left = left + 'px';
-    // object.style.bottom = bottom + 'px';
-    // object.body.append(object);
-
-    object.addEventListener('dblclick', function(){
-        object.remove();
+    let item = newImage(url, left, bottom)
+    item.addEventListener('click', function() {
+        item.remove()
+        let inventoryItem = document.createElement('img')
     })
 }
 
+function newInventory(){
+    let inventory = document.createElement('div')
+    inventory.style.position = 'fixed'
+    inventory.style.bottom = '0px';
+    inventory.style.left = '0px'
+    inventory.style.width = '100%'
+    inventory.style.height = '100px'
+    inventory.style.display = 'flex'
+    inventory.style.flexDirection = 'row'
+    inventory.style.alignItems = 'center'
+    inventory.style.justifyContent = 'space-evenly'
+    inventory.style.border = '2px solid black'
+    inventory.style.backgroundColor = 'brown'
+    document.body.append(inventory)
+}
+
+newInventory()
 newImage('assets/green-character.gif', 100, 100);
 newImage('assets/pine-tree.png', 450, 200);
 newImage('assets/tree.png', 200, 300);
