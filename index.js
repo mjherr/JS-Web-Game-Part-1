@@ -1,45 +1,56 @@
-function newImage (url, left, bottom) {
-    let object = document.createElement('img');
-    object.src = url;
-    object.style.position = 'fixed';
-    object.style.left = left + 'px';
-    object.style.bottom = bottom + 'px';
-    document.body.append(object);
-    return object
-}
+const inventory = newInventory()
+move(inventory).to(0, 0)
 
-function newItem (url, left, bottom) {
-    let item = newImage(url, left, bottom)
-    item.addEventListener('click', function() {
-        item.remove()
-        let inventoryItem = document.createElement('img')
-    })
-}
+const character = newImage('assets/green-character/static.gif')
+let direction = null;
+let x = 100;
+let y = 250;
 
-function newInventory(){
-    let inventory = document.createElement('div')
-    inventory.style.position = 'fixed'
-    inventory.style.bottom = '0px';
-    inventory.style.left = '0px'
-    inventory.style.width = '100%'
-    inventory.style.height = '100px'
-    inventory.style.display = 'flex'
-    inventory.style.flexDirection = 'row'
-    inventory.style.alignItems = 'center'
-    inventory.style.justifyContent = 'space-evenly'
-    inventory.style.border = '2px solid black'
-    inventory.style.backgroundColor = 'brown'
-    document.body.append(inventory)
-}
+setInterval (function () {
+if (direction === 'west') {
+    x = x - 1
+};
+if (direction === 'north') {
+    y = y + 1
+};
+if (direction === 'east') {
+    x = x + 1
+};
+if (direction === 'south') {
+    y = y - 1
+};
+}, 1);
 
-newInventory()
-newImage('assets/green-character.gif', 100, 100);
-newImage('assets/pine-tree.png', 450, 200);
-newImage('assets/tree.png', 200, 300);
-newImage('assets/pillar.png', 350, 100);
-newImage('assets/crate.png', 150, 200);
-newImage('assets/well.png', 500, 425);
+document.addEventListener('keyup', function(e) {
+    direction = null
+});
 
-newItem('assets/sword.png', 500, 405);
-newItem('assets/sheild.png', 165, 185);
-newItem('assets/staff.png', 600, 100);
+document.addEventListener('keydown', function (e) {
+    if (e.repeat) return;
+
+    if (e.key === 'ArrowLeft') {
+        direction = 'west'
+    }
+    if (e.key === 'ArrowUp') {
+        direction = 'north'
+    }
+    if (e.key === 'ArrowRight') {
+        direction = 'east'
+    }
+    if (e.key === 'ArrowDown') {
+        direction = 'south'
+    }
+})
+
+character.style.left = x + 'px';
+character.style.bottom = y + 'px';
+move(character).to(100, 250);
+
+move(newImage('assets/tree.png')).to(200, 450)
+move(newImage('assets/pillar.png')).to(350, 250)
+move(newImage('assets/pine-tree.png')).to(450, 350)
+move(newImage('assets/crate.png')).to(150, 350)
+move(newImage('assets/well.png')).to(500, 575)
+move(newItem('assets/sword.png')).to(500, 555)
+move(newItem('assets/sheild.png')).to(165, 335)
+move(newItem('assets/staff.png')).to(600, 250)
